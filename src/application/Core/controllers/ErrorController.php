@@ -20,5 +20,10 @@ class ErrorController extends Zend_Controller_Action
     {
         $errorHandler = $this->_getParam('error_handler');
         $this->view->exception = $errorHandler->exception;
+        
+        $fc = Zend_Controller_Front::getInstance();
+        $log = $fc->getParam('bootstrap')->getResource('log');
+        $log->crit($errorHandler->exception->getMessage());
+       
     }
 }
