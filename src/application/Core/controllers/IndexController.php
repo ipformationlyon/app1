@@ -13,6 +13,8 @@ class IndexController extends Zend_Controller_Action
     
     public function indexAction()
     {
+        $articleMapper = new Core_Model_Mapper_Article();
+        $this->view->articles = $articleMapper->fetchLast(5);
         
     }
     
