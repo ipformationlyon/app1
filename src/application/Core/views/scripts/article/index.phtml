@@ -1,0 +1,21 @@
+<?php 
+$this->headTitle('Accueil');
+$this->headMeta()->appendName('description', "Page d'accueil");
+?>
+<br />
+<br /><br />
+<?php if($this->articles):?>
+    <?php foreach( $this->articles as $article) :?>
+    <div class="article">
+    <?php var_dump($this->url(array('id' => $article->getArticleId()), 'articleDelete', FALSE, FALSE));?>
+        <a href="<?= $this->url(array('action' => 'delete', 'controller' => 'article'), null, TRUE, FALSE);?>" >Supprimer l'article</a><br />
+        <h2><?= $article->getArticleTitle()?></h2>
+        <h3>Par <?= $article->getAuthor()->getAuthorName()?></h3>
+        <div class="articleContent">
+        <?= $article->getArticleContent()?>
+        </div>
+    </div>
+    <?php endforeach;?>
+<?php else: ?>
+Aucun article !!!
+<?php endif;?>

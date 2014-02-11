@@ -2,6 +2,11 @@
 
 class Core_Model_User implements Zend_Acl_Role_Interface{
     
+    const GUEST     = 0;
+    const ROOT      = 1;
+    const AUTHOR    = 2;
+    const MODERATOR = 3;
+    
     private $roleId;
     private $userId;
     private $userLogin;
