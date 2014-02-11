@@ -42,6 +42,23 @@ class ArticleController extends Zend_Controller_Action
     }
     
     public function deleteAction(){
+        $this->_helper->viewRenderer->setNoRender();
+        $userAuth = Zend_Auth::getInstance()->getIdentity();
         
+        $articleId = $this->_getParam('id');
+        
+        $mapperArticle = new Core_Model_Mapper_Article();
+        $article = $mapperArticle->find($articleId);
+        
+        $session = new Zend_Session_Namespace('message');
+        $acl = Zend_Registry::get('Zend_Acl');
+        if($acl->isAllowed($userAuth, $article, 'delete')){
+            $mapperArticle->delete($article);
+            $session->__set('value', 'Supression de l\'article réussie');
+        } else {
+            $session->__set('value', 'Echec de la supression de l\'article');
+        }
+        
+        $this->_redirect('/accueil.html');
     }
 }

@@ -7,8 +7,7 @@ $this->headMeta()->appendName('description', "Page d'accueil");
 <?php if($this->articles):?>
     <?php foreach( $this->articles as $article) :?>
     <div class="article">
-    <?php var_dump($this->url(array('id' => $article->getArticleId()), 'articleDelete', FALSE, FALSE));?>
-        <a href="<?= $this->url(array('action' => 'delete', 'controller' => 'article'), null, TRUE, FALSE);?>" >Supprimer l'article</a><br />
+        <a href="<?= $this->url(array('id' => $article->getArticleId()), 'articleDelete', TRUE, FALSE);?>" >Supprimer l'article</a><br />
         <h2><?= $article->getArticleTitle()?></h2>
         <h3>Par <?= $article->getAuthor()->getAuthorName()?></h3>
         <div class="articleContent">
