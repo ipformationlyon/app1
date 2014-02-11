@@ -22,9 +22,10 @@ class Core_Bootstrap extends Zend_Application_Module_Bootstrap
     {
         $resourceLoader = new Zend_Loader_Autoloader_Resource(array(
             'basePath'  => SRC_PATH,
-            'namespace' => '',
+            'namespace' => 'Core',
         ));
-        $resourceLoader->addResourceType('asserter', 'application/Core/asserter', 'Core_Asserter');
+        $resourceLoader->addResourceType('asserter', 'application/Core/asserter', 'Asserter');
+        $resourceLoader->addResourceType('decorator', 'application/Core/forms/decorators', 'Decorator');
     }
     
     protected function _initAcl(){

@@ -30,15 +30,50 @@ class ArticleController extends Zend_Controller_Action
     }
     
     public function createAction(){
+        $form = new Core_Form_Article();
+        $form->setDecorators(array(
+            array('ViewScript', array('viewScript' => '/article/forms/article.phtml',
+                                      'title' => 'Création d\'un article')),
+            'Form'
+        ));
+        if($this->_request->isPost()){
+            $post = $this->_request->getPost();
+            if($form->isValid($post)){
+                echo 'Je suis ok !!';
+            }else{
+                echo 'Pas ok !!';
+            }
+        }
         
+        $this->view->form = $form;
     }
     
     public function readAction(){
+        $articleId = $this->_getParam('id');
         
+        $mapperArticle = new Core_Model_Mapper_Article();
+        $article = $mapperArticle->find($articleId);
+        
+        $this->view->article = $article;
     }
         
     public function updateAction(){
+        $articleId = $this->_getParam('id');
         
+        $mapperArticle = new Core_Model_Mapper_Article();
+        $article = $mapperArticle->find($articleId);
+        
+        $form = new Core_Form_Article();
+        $form->setDecorators(array(
+            array('ViewScript', array('viewScript' => '/article/forms/article.phtml',
+                'title' => 'Modification d\'un article')),
+            'Form'
+        ));
+        
+        $form->populate(array('article_title' => $article->getArticleTitle(),
+                              'article_content' => $article->getArticleContent()));
+        
+        $this->view->form = $form;
     }
     
     public function deleteAction(){
